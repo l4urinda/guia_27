@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Guia definitivo para os 27</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: #f4e8d5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* IMAGEM INICIAL */
+
+        .container {
+            position: relative;
+            width: min(100vw, 177.78vh);
+            aspect-ratio: 1360 / 765;
+        }
+
+        .imagem {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* ÁREAS CLICÁVEIS INVISÍVEIS */
+
+        .area-secreta {
+            position: absolute;
+            display: block;
+            background: transparent;
+            border: none;
+            outline: none;
+            padding: 0;
+            z-index: 5;
+            cursor: default;
+        }
+
+        /* Envelope 05/12 */
+        .dia05 {
+            left: 6.2%;
+            top: 36.5%;
+            width: 5.5%;
+            height: 7%;
+        }
+
+        /* Envelope 12/12 */
+        .dia12 {
+            left: 31.5%;
+            top: 54%;
+            width: 5.5%;
+            height: 7%;
+        }
+
+        /* Envelope 19/12 */
+        .dia19 {
+            left: 58.3%;
+            top: 36.5%;
+            width: 5.5%;
+            height: 7%;
+        }
+
+        /* Bolo 26/12 */
+        .dia26 {
+            left: 81%;
+            top: 43%;
+            width: 13%;
+            height: 30%;
+        }
+
+        /* CARTINHA */
+
+        .fundo-carta {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.18);
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            padding: 15px;
+        }
+
+        .quadradinho {
+            width: 500px;
+            height: 450px;
+            max-width: 95vw;
+            max-height: 85vh;
+
+            background: #fffaf0;
+            border: 1px solid #d8cbb8;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+
+            padding: 40px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            overflow-y: auto;
+        }
+
+        .titulo-carta {
+            font-family: Georgia, serif;
+            font-size: 22px;
+            color: #665748;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+
+        .texto-carta {
+            font-family: Georgia, serif;
+            font-size: 15px;
+            line-height: 1.5;
+            color: #665748;
+            text-align: center;
+            white-space: pre-wrap;
+        }
+
+        @media (max-width: 600px) {
+            .quadradinho {
+                width: 90vw;
+                height: 75vh;
+                padding: 22px;
+            }
+
+            .titulo-carta {
+                font-size: 19px;
+                margin-bottom: 15px;
+            }
+
+            .texto-carta {
+                font-size: 14px;
+                line-height: 1.5;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <img
+            src="static/canva.webp"
+            class="imagem"
+            alt="Guia definitivo para os 27"
+        >
+
+        <button class="area-secreta dia05" onclick="abrirCarta('05/12')"></button>
+
+        <button class="area-secreta dia12" onclick="abrirCarta('12/12')"></button>
+
+        <button class="area-secreta dia19" onclick="abrirCarta('19/12')"></button>
+
+        <button class="area-secreta dia26" onclick="abrirCarta('26/12')"></button>
+
+    </div>
+
+    <!-- CARTINHA -->
+
+    <div class="fundo-carta" id="fundoCarta" onclick="fecharCarta()">
+
+        <div class="quadradinho" onclick="event.stopPropagation()">
+
+            <div class="titulo-carta" id="tituloCarta"></div>
+
+            <div class="texto-carta" id="textoCarta"></div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        // INSTRUÇÕES DAS CARTINHAS
+
+        const cartas = {
+
+            "05/12": `
+Oi meu gatinho, chegou dezembro mais uma vez, já é o 6º desde que a gente se conheceu, loucura né? 
+Pra mim essa data tem um peso muito grande só de você estar aqui e eu ainda ter a oportunidade de compatilhar a vida contigo
+Então quero que se sinta muito amado de dezembro a dezembro por mim, espero que goste de tudo que planejei
+
+A gente se encontra nessa data às 10h na estação, combinado? Vai com roupa confortável
+Te vejo lá <3
+            `,
+
+            "12/12": `
+Mais um dia! Se você tá lendo isso, a gente já se encontrou sábado passado (ou você abriu essa sem querer, o que seria sua cara)
+
+Espero que tenha gostado do dia meu gatinho, por mais simples que tenha sido, quem sabe ano que vem é maldivas
+Mas enquanto isso não rola, quero celebrar sua vida todos os dias possíveis, do jeito que der
+Por isso quero te convidar mais uma vez
+
+A gente se encontra nessa data às 10h20, nesse dia, irá um carro te buscar 
+Leve o que quiser, considere fazer uma malinha com troca de roupas, escova, chinelo...
+Te vejo lá <3
+            `,
+
+            "19/12": `
+Oi meu amor mais uma vez, espero que não enjoe de me ver... A essa altura já deve ter percebido que os emojis dão alguma pista pro que vai ser o dia né? (ou nem reparou a existência deles, o que seria sua cara também)
+Cada dia mais perto dos 27, mas parece que só minha cabeça já nasceu os cabelos brancos, você continua tão bonito quanto há 6 anos quando te vi a primeira vez
+Todos os dias que te vejo, fico mais encantada por você, pelos teus olhos âmbar e seu sorriso, que espero ver todos estes fins de semana
+Esse será mais um
+
+A gente se encontra nessa data às 10h na estação, nesse dia as roupas são livres, você escolhe, sei que estará lindo
+            `,
+
+            "26/12": `
+Grande dia!! Se você tá lendo isso, ainda não é o dia de fato, mas tá beeeem próximo, irei guardar todas minhas palavras para o dia em si, por mais que eu não seja boa com elas
+
+Estamos chegando ao fim, espero que você tenha gostado de tudo até aqui, eu planejei com muito carinho para você e espero que tenha transmitido ao menos um pouco de toda minha alegria de comemorar sua vida
+
+A gente se vê no seu grande dia, às 5h40 (cedo, eu sei), um carro irá te buscar, vai confortável
+            `
+
+        };
+
+        // ABRIR CARTA
+
+        function abrirCarta(data) {
+
+            const titulo = document.getElementById("tituloCarta");
+            const texto = document.getElementById("textoCarta");
+
+            const emojis = {
+                "05/12": "🦒",
+                "12/12": "🩴",
+                "19/12": "🦘",
+                "26/12": "🎠"
+            };
+
+            titulo.innerText = data + " " + emojis[data];
+            texto.innerText = cartas[data].trim();
+
+            document.getElementById("fundoCarta").style.display = "flex";
+
+        }
+
+        // FECHAR CARTA
+
+        function fecharCarta() {
+
+            document.getElementById("fundoCarta").style.display = "none";
+
+        }
+
+        // FECHAR COM ESC
+
+        document.addEventListener("keydown", function(event) {
+
+            if (event.key === "Escape") {
+                fecharCarta();
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>
